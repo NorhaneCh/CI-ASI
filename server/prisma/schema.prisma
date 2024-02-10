@@ -1,8 +1,143 @@
-// generator client {
-//   provider = "prisma-client-js"
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+// model FormationCarte {
+//     id Int @id @default(autoincrement())
+//     //
+//     //
+//     //
+//     DateDebut DateTime
+//     DateFin DateTime
+//     NbJours Int
+//     NbParticipants Int
+//     lieu String
+//     TarifP Float
+//     NbFormateur Int
+//     Devis String?
+
+//     DateCreation DateTime @default(now())
+//     DateModification DateTime @updatedAt
+
 // }
 
-// datasource db {
-//   provider = "mysql"
-//   url      = env("DB_URL")
-// }
+model Formation {
+  id             Int         @id @default(autoincrement())
+  theme          Theme       @relation(fields: [themeId], references: [id])
+  themeId        Int
+  part           Partenaire? @relation(fields: [partId], references: [id])
+  partId         Int?
+  formateur      Formateur   @relation(fields: [formateurId], references: [matricule])
+  formateurId    Int
+  designation    String
+  DateDebut      DateTime
+  DateFin        DateTime
+  NbJours        Int
+  NbParticipants Int
+  lieu           String
+  TarifP         Float
+  NbFormateur    Int
+  Devis          String?
+
+  DateCreation     DateTime      @default(now())
+  DateModification DateTime      @updatedAt
+  Participant      Participant[]
+}
+
+model Theme {
+  id          Int     @id @default(autoincrement())
+  dom         Domaine @relation(fields: [domId], references: [id])
+  domId       Int
+  designation String
+  Duree       Int
+  NbFormateur Int?
+  Niveau      String
+  TarifP      Float
+  isCertif    Boolean
+
+  description String?
+  prerequis   String?
+  Objectif    StringList[]
+
+  DateCreation     DateTime    @default(now())
+  DateModification DateTime    @updatedAt
+  Formation        Formation[]
+}
+
+model StringList {
+  id Int @id @default(autoincrement())
+
+  value            String
+  DateCreation     DateTime @default(now())
+  DateModification DateTime @updatedAt
+  Theme            Theme?   @relation(fields: [themeId], references: [id])
+  themeId          Int?
+}
+
+model Formateur {
+  matricule Int @id
+
+  nom        String
+  prenom     String
+  email      String
+  tel        String
+  adresse    String
+  specialite String
+  fonction   String
+  NumCompte  String
+  Salaire    Float
+
+  DateCreation     DateTime    @default(now())
+  DateModification DateTime    @updatedAt
+  Formation        Formation[]
+}
+
+model Participant {
+  id            Int        @id @default(autoincrement())
+  Part          Partenaire @relation(fields: [partId], references: [id])
+  partId        Int
+  Form          Formation  @relation(fields: [formId], references: [id])
+  formId        Int
+  nom           String
+  prenom        String
+  email         String
+  tel           String
+  adresse       String
+  DateNaissance DateTime
+  sexe          String
+  photo         String?
+
+  DateCreation     DateTime @default(now())
+  DateModification DateTime @updatedAt
+}
+
+model Domaine {
+  id               Int      @id @default(autoincrement())
+  //
+  //
+  //
+  designation      String
+  DateCreation     DateTime @default(now())
+  DateModification DateTime @updatedAt
+  Theme            Theme[]
+}
+
+model Partenaire {
+  id    Int    @id @default(autoincrement())
+  //
+  //
+  //
+  nom   String
+  email String
+  tel   String
+
+  DateCreation     DateTime      @default(now())
+  DateModification DateTime      @updatedAt
+  Formation        Formation[]
+  Participant      Participant[]
+}
