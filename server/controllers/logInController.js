@@ -41,9 +41,8 @@ const createUser = async (req, res) => {
         const user = await prisma.user.create({
             data: {
                 email: email,
-                password: password,
+                password: bcrypt.hash(password, 10),
                 role: role,
-                
             }
         }).then((user) => {
             res.json(user);
@@ -53,6 +52,13 @@ const createUser = async (req, res) => {
         console.log(e);
         res.status(400).json({ error: e.message });
     }
+}
+
+
+const getUser = async (req, res) => {
+
+    
+
 }
 
 

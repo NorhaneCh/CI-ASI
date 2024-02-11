@@ -17,7 +17,7 @@ const getThemes = async (req, res) => {
 
 const createTheme = async (req, res) => {
 
-    const { domId, designation, Duree, Niveau, TarifP, isCertif } = req.body;
+    const { domId, designation, Duree, Niveau, TarifP, isCertif, devis, description, prerequis } = req.body;
     try {
         const theme = await prisma.theme.create({
             data: {
@@ -26,7 +26,10 @@ const createTheme = async (req, res) => {
                 Duree : Duree,      
                 Niveau :  Niveau,     
                 TarifP : TarifP,   
-                isCertif: isCertif
+                isCertif: isCertif,
+                devis: devis,
+                description : description,
+                prerequis : prerequis 
             }
         }).then((theme) => {
             res.json(theme);

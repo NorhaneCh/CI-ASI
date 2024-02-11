@@ -66,7 +66,7 @@ const getFormateurById = async (req, res) => {
     try {
         const formateur = await prisma.formateur.findUnique({
             where: {
-                matricule: parseInt(id)
+                matricule: id
             }
         })
         if (!formateur) {
