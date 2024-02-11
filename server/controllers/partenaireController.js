@@ -33,6 +33,25 @@ const createPartenaire = async (req, res) => {
     }
 }
 
+const getPartenaireById = async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const partenaire = await prisma.partenaire.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        })
+        if (!partenaire) {
+            return res.status(404).json({error: 'partenaire not found'})
+        }
+        res.json(partenaire)
+    }
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
 const deletePartenaire = async (req, res) => {
     const {id} = req.params;
 
@@ -58,5 +77,6 @@ const deletePartenaire = async (req, res) => {
 module.exports = {
     getPartenaires,
     createPartenaire,
-    deletePartenaire
+    deletePartenaire,
+    getPartenaireById
 }
