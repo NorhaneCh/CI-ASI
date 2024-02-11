@@ -7,8 +7,7 @@ const Theme = () => {
   const { selectedTheme } = useContext(FormationContext);
   return (
     <div
-      className={`${styles.padding} z-0 max-w-7xl mx-auto w-[60%] text-[15px] flex flex-col gap-4`}
-    >
+      className={`${styles.padding} z-0 max-w-7xl mx-auto w-[60%] text-[15px] flex flex-col gap-4`} >
       <p className="text-center font-semibold text-[24px]">
         {selectedTheme.designation}
       </p>
