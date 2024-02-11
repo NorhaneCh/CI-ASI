@@ -3,11 +3,11 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 
-const domaineRouter = require("./routes/domaineRoutes.js");
-const partenaireRouter = require("./routes/partenairesRoutes");
-const formateurRouter = require("./routes/formateursRoutes");
-const formationRouter = require("./routes/formationsRoutes");
-const themeRouter = require("./routes/themesRoutes");
+const domaineRouter = require("./routers/domaines.js");
+const partenaireRouter = require("./routers/partenaires.js");
+const formateurRouter = require("./routers/formateurs.js");
+const formationRouter = require("./routers/formations.js");
+const themeRouter = require("./routers/themes.js");
 
 const PORT = process.env.PORT || 5000;
 

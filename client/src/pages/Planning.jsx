@@ -19,16 +19,20 @@ const Planning = () => {
         Planning des formations
       </p>
       <div className="w-[90%] mx-auto">
-        {domaines?.map((domaine) => (
+      {domaines?.map((domaine) => (
           <div className="mt-24">
             <p className="font-semibold text-[20px]">{domaine.designation}</p>
-            <div className="flex flex-wrap gap-7 mt-6">
-              {formations.map((formation) => (
-                <Link to={`/formation/${formation.id}`}>
-                  <div onClick={() => SelectFormation(formation)}>
-                    <FormationCard formation={formation} />
-                  </div>
-                </Link>
+            <div className="flex flex-wrap gap-6 mt-6">
+              {formations?.map((formation) => (
+                <div>
+                  {formation.domId == domaine.id && (
+                    <Link to={`/theme/${formation.id}`}>
+                      <div onClick={() => SelectFormation(formation)}>
+                        <FormationCard formation={formation} />
+                      </div>
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
           </div>

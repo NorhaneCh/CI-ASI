@@ -13,6 +13,7 @@ export const FormationContextProvider = ({ children }) => {
   const [activeNav, setActiveNav] = useState("");
   const [domaines, setDomaines] = useState();
   const [themes, setThemes] = useState();
+  const [formations, setFormations] = useState();
 
   useEffect(() => {
     const getDomaines = async () => {
@@ -29,12 +30,23 @@ export const FormationContextProvider = ({ children }) => {
     const getThemes = async () => {
       const response = await getRequest(`${baseUrl}/themes`);
       if (response.error) {
-        console.log("Error fetching domaines ", response);
+        console.log("Error fetching themes ", response);
       }
       setThemes(response);
     };
     getThemes();
   }, [themes]);
+
+  useEffect(() => {
+    const getFormations = async () => {
+      const response = await getRequest(`${baseUrl}/formations`);
+      if (response.error) {
+        console.log("Error fetching formations ", response);
+      }
+      setFormations(response);
+    };
+    getFormations();
+  }, [formations]);
 
   return (
     <FormationContext.Provider
@@ -46,7 +58,8 @@ export const FormationContextProvider = ({ children }) => {
         selectedFormation,
         setSelectedFormation,
         domaines,
-        themes
+        themes,
+        formations,
       }}
     >
       {children}
