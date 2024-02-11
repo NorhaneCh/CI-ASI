@@ -8,4 +8,8 @@ import time from "./time.png"
 import money from "./money.png"
 import formation from "./formation.png"
 import arrow from "./arrow.png"
-export { location,money, organisme, date, person, true_icon, false_icon , time,formation,arrow };
+import cooperation from "./cooperation.png"
+import logo from "./logo.svg"
+
+
+export { location,money, organisme, date, person, true_icon, false_icon , time,formation,arrow,cooperation ,logo};
