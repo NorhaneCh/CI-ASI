@@ -17,7 +17,7 @@ const getThemes = async (req, res) => {
 
 const createTheme = async (req, res) => {
 
-    const { designation, Duree, Niveau, TarifP, isCertif } = req.body;
+    const { domId, designation, Duree, Niveau, TarifP, isCertif } = req.body;
     try {
         const theme = await prisma.theme.create({
             data: {
@@ -85,11 +85,32 @@ const getThemeByDomaine = async (req, res) => {
     }
 }
 
+const getThemeByDomaine2 = async (domId) => {
+
+    
+    try {
+        const themes = await prisma.theme.findMany({
+            where: {
+                domId: parseInt(domId)
+            }
+        })
+        if (!themes) {
+            return null;
+        }
+        return themes;
+    }
+    catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
     
 
 module.exports = {
     getThemes,
     createTheme,
     deleteTheme,
-    getThemeByDomaine
+    getThemeByDomaine,
+    getThemeByDomaine2
 }
