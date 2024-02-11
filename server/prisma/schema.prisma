@@ -1,12 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  migrations = "server/prisma/migrations"
 }
 
 datasource db {
   provider = "mysql"
-  url =  env("DB_URL")
+  url      = env("DB_URL")
 }
-
 
 // model FormationCarte {
 //     id Int @id @default(autoincrement())
@@ -31,10 +31,12 @@ model Formation {
   id             Int         @id @default(autoincrement())
   theme          Theme       @relation(fields: [themeId], references: [id])
   themeId        Int
+  domaine        Domaine     @relation(fields: [domId], references: [id])
+  domId          Int
   part           Partenaire? @relation(fields: [partId], references: [id])
   partId         Int?
   formateur      Formateur   @relation(fields: [formateurId], references: [matricule])
-  formateurId    Int
+  formateurId    String
   designation    String
   DateDebut      DateTime
   DateFin        DateTime
@@ -42,8 +44,7 @@ model Formation {
   NbParticipants Int
   lieu           String
   TarifP         Float
-  NbFormateur    Int
-  Devis          String?
+  Devis          Bytes?
 
   DateCreation     DateTime      @default(now())
   DateModification DateTime      @updatedAt
@@ -68,6 +69,7 @@ model Theme {
   DateCreation     DateTime    @default(now())
   DateModification DateTime    @updatedAt
   Formation        Formation[]
+  Demande          Demande[]
 }
 
 model StringList {
@@ -81,7 +83,7 @@ model StringList {
 }
 
 model Formateur {
-  matricule Int @id
+  matricule String @id
 
   nom        String
   prenom     String
@@ -96,6 +98,7 @@ model Formateur {
   DateCreation     DateTime    @default(now())
   DateModification DateTime    @updatedAt
   Formation        Formation[]
+  User             User[]
 }
 
 model Participant {
@@ -118,14 +121,15 @@ model Participant {
 }
 
 model Domaine {
-  id               Int      @id @default(autoincrement())
+  id               Int         @id @default(autoincrement())
   //
   //
   //
   designation      String
-  DateCreation     DateTime @default(now())
-  DateModification DateTime @updatedAt
+  DateCreation     DateTime    @default(now())
+  DateModification DateTime    @updatedAt
   Theme            Theme[]
+  Formation        Formation[]
 }
 
 model Partenaire {
@@ -141,4 +145,40 @@ model Partenaire {
   DateModification DateTime      @updatedAt
   Formation        Formation[]
   Participant      Participant[]
+  User             User[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email    String
+  password String
+  role     String
+
+  formateur   Formateur? @relation(fields: [formateurId], references: [matricule])
+  formateurId String?
+
+  partenaire   Partenaire? @relation(fields: [partenaireId], references: [id])
+  partenaireId Int?
+
+  DateCreation     DateTime @default(now())
+  DateModification DateTime @updatedAt
+}
+
+model Demande {
+  id Int @id @default(autoincrement())
+
+  theme   Theme @relation(fields: [idTheme], references: [id])
+  idTheme Int
+
+  nomOrganisme   String
+  nbParticipants Int?
+  email          String
+  tel            String
+
+  note     String?
+  isTraite Boolean @default(false)
+
+  DateCreation     DateTime @default(now())
+  DateModification DateTime @updatedAt
 }

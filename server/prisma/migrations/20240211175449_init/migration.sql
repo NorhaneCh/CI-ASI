@@ -2,8 +2,9 @@
 CREATE TABLE `Formation` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `themeId` INTEGER NOT NULL,
+    `domId` INTEGER NOT NULL,
     `partId` INTEGER NULL,
-    `formateurId` INTEGER NOT NULL,
+    `formateurId` VARCHAR(191) NOT NULL,
     `designation` VARCHAR(191) NOT NULL,
     `DateDebut` DATETIME(3) NOT NULL,
     `DateFin` DATETIME(3) NOT NULL,
@@ -11,8 +12,7 @@ CREATE TABLE `Formation` (
     `NbParticipants` INTEGER NOT NULL,
     `lieu` VARCHAR(191) NOT NULL,
     `TarifP` DOUBLE NOT NULL,
-    `NbFormateur` INTEGER NOT NULL,
-    `Devis` VARCHAR(191) NULL,
+    `Devis` LONGBLOB NULL,
     `DateCreation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `DateModification` DATETIME(3) NOT NULL,
 
@@ -50,7 +50,7 @@ CREATE TABLE `StringList` (
 
 -- CreateTable
 CREATE TABLE `Formateur` (
-    `matricule` INTEGER NOT NULL,
+    `matricule` VARCHAR(191) NOT NULL,
     `nom` VARCHAR(191) NOT NULL,
     `prenom` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -107,8 +107,39 @@ CREATE TABLE `Partenaire` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `User` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `role` VARCHAR(191) NOT NULL,
+    `DateCreation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `DateModification` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Demande` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `idTheme` INTEGER NOT NULL,
+    `nomOrganisme` VARCHAR(191) NOT NULL,
+    `nbParticipants` INTEGER NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `tel` VARCHAR(191) NOT NULL,
+    `note` VARCHAR(191) NULL,
+    `isTraite` BOOLEAN NOT NULL DEFAULT false,
+    `DateCreation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `DateModification` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `Formation` ADD CONSTRAINT `Formation_themeId_fkey` FOREIGN KEY (`themeId`) REFERENCES `Theme`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Formation` ADD CONSTRAINT `Formation_domId_fkey` FOREIGN KEY (`domId`) REFERENCES `Domaine`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Formation` ADD CONSTRAINT `Formation_partId_fkey` FOREIGN KEY (`partId`) REFERENCES `Partenaire`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -127,3 +158,6 @@ ALTER TABLE `Participant` ADD CONSTRAINT `Participant_partId_fkey` FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE `Participant` ADD CONSTRAINT `Participant_formId_fkey` FOREIGN KEY (`formId`) REFERENCES `Formation`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Demande` ADD CONSTRAINT `Demande_idTheme_fkey` FOREIGN KEY (`idTheme`) REFERENCES `Theme`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
