@@ -6,7 +6,7 @@ const ThemeCard = ({ theme }) => {
   const { setSelectedTheme } = useContext(FormationContext);
   return (
     <div
-      className="text-[15px] flex flex-col gap-3 border-2 border-color-blue/10 bg-color-blue/10 rounded-xl p-4 w-[320px] h-[200px] hover:cursor-pointer "
+      className="text-[15px] flex flex-col gap-3 border-2 border-color-blue/10 bg-color-blue/10 rounded-xl p-4 w-[320px] h-[200px] hover:shadow-xl hover:cursor-pointer "
       onClick={() => setSelectedTheme(theme)}
     >
       <p className="font-semibold">{theme.designation}</p>

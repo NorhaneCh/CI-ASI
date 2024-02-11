@@ -8,6 +8,7 @@ import {
   date,
   money,
   time,
+  formation,
 } from "../assets/index.js";
 
 const Formation = () => {
@@ -29,34 +30,40 @@ const Formation = () => {
       </div>
       <div className="flex flex-row gap-3">
         <img className=" w-[20px] h-[20px]" src={location} alt="localisation" />
-        <p>Lieu</p>
+        <p>{selectedFormation.lieu}</p>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={money} alt="formateur" />
         <p>
-          <span>500</span>
+          <span>{selectedFormation.TarifP}</span>
           <span> DA</span>
         </p>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={time} alt="formateur" />
         <p>
-          <span>20</span>
+          <span>{selectedFormation.NbJours}</span>
           <span> jours</span>
         </p>
       </div>
 
       <div className="flex flex-row gap-9">
         <p className="text-color-blue bg-color-blue/10 p-2 rounded-md w-[130px] text-[14px]">
-          20 participants
+          <span>{selectedFormation.NbParticipants}</span>
+          <span> Participants</span>
         </p>
         <div className="flex flex-row gap-2 text-green-500 bg-green-500/10 p-2 text-[14px] rounded-md">
           <img className="w-[22px] h-[22px]" src={date} alt="date" />
-          <p className="text-[14px]">12/10/2024</p>
+          <p className="text-[14px]">
+            {selectedFormation.DateDebut.slice(0, 10)}
+          </p>
         </div>
         <div className="flex flex-row gap-2 text-green-500 bg-green-500/10 p-2 text-[14px] rounded-md">
           <img className="w-[22px] h-[22px]" src={date} alt="date" />
-          <p className="text-[14px]">28/10/2024</p>
+          <p className="text-[14px]">
+            {" "}
+            {selectedFormation.DateFin.slice(0, 10)}
+          </p>
         </div>
       </div>
       <p className="font-semibold mt-12">Prérequis : </p>

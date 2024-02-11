@@ -4,8 +4,6 @@ import Catalogue from "./pages/Catalogue.jsx";
 import Theme from "./components/Theme.jsx";
 import Accueil from "./pages/Accueil.jsx";
 import Formation from "./components/Formation.jsx";
-import { useContext } from "react";
-import { FormationContext } from "./context/FormationContext.jsx";
 import Planning from "./pages/Planning.jsx";
 
 function App() {

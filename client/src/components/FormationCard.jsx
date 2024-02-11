@@ -5,13 +5,13 @@ const FormationCard = ({ formation }) => {
   const { setSelectedFormation } = useContext(FormationContext);
   return (
     <div
-      className="text-[15px] flex flex-col gap-3 border-2 border-color-blue/10 bg-color-blue/10 rounded-xl p-4 w-[320px]  hover:cursor-pointer "
+      className="text-[15px] flex flex-col gap-3 border-2 border-color-blue/10 bg-color-blue/10 rounded-xl p-4 w-[320px]  hover:cursor-pointer hover:shadow-xl"
       onClick={() => setSelectedFormation(formation)}
     >
-      <p className="font-semibold">Thème</p>
+      <p className="font-semibold">{formation.designation}</p>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={person} alt="formateur" />
-        <p>Formateur</p>
+        <p>formateur</p>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={organisme} alt="formateur" />
@@ -19,7 +19,7 @@ const FormationCard = ({ formation }) => {
       </div>
       <div className="flex flex-row gap-3">
         <img className=" w-[20px] h-[20px]" src={location} alt="localisation" />
-        <p>Lieu</p>
+        <p>{formation.lieu}</p>
       </div>
       <div className="flex flex-row text-[14px] gap-9">
         <p className="text-color-blue bg-color-blue/10 p-2 rounded-md">

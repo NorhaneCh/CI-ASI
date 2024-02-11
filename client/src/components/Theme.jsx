@@ -12,7 +12,7 @@ const Theme = () => {
       <p className="text-center font-semibold text-[24px]">
         {selectedTheme.designation}
       </p>
-      <div className="flex flex-row gap-2 items-center">
+      <div className="flex flex-row gap-2 items-center mt-12">
         <img className=" w-[25px] h-[25px]" src={time} alt="formateur" />
         <p>
           <span>{selectedTheme.Duree}</span>
@@ -43,10 +43,9 @@ const Theme = () => {
       <p className="font-semibold mt-12">Prérequis : </p>
       <p>- Bonne connaissance de l’outil informatique</p>
       <p className="font-semibold mt-12">Objectifs : </p>
-      <p>- Apprendre les commandes de bases du système Linux</p>
-      <p>- Se familiariser avec l’arborescence des chiers</p>
-      <p>- Utiliser l’interface graphique</p>
+
       <p className="font-semibold mt-12">Contenu de formation : </p>
+
       <button className="px-6 py-2 bg-color-blue text-white rounded-xl mt-12 font-medium text-[13px] ml-auto hover:bg-blue-500">
         S'inscrire
       </button>

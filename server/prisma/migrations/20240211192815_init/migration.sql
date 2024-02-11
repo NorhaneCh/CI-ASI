@@ -110,9 +110,11 @@ CREATE TABLE `Partenaire` (
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
     `role` VARCHAR(191) NOT NULL,
+    `formateurId` VARCHAR(191) NULL,
+    `partenaireId` INTEGER NULL,
     `DateCreation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `DateModification` DATETIME(3) NOT NULL,
 
@@ -158,6 +160,12 @@ ALTER TABLE `Participant` ADD CONSTRAINT `Participant_partId_fkey` FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE `Participant` ADD CONSTRAINT `Participant_formId_fkey` FOREIGN KEY (`formId`) REFERENCES `Formation`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `User` ADD CONSTRAINT `User_formateurId_fkey` FOREIGN KEY (`formateurId`) REFERENCES `Formateur`(`matricule`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `User` ADD CONSTRAINT `User_partenaireId_fkey` FOREIGN KEY (`partenaireId`) REFERENCES `Partenaire`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Demande` ADD CONSTRAINT `Demande_idTheme_fkey` FOREIGN KEY (`idTheme`) REFERENCES `Theme`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
