@@ -10,10 +10,10 @@ npm install
 npm install
 ```
 3- Créer dans le dossier serveur un fichier .env  
-4- Ajouter ce contenu dans le fichier .env et changer <password> avec votre mot de passe de la base de données
+4- Ajouter ce contenu dans le fichier .env et changer password avec votre mot de passe de la base de données
 ```bash
 PORT=5000
-DB_URL=mysql://root:<password>@localhost:3306/sigrex
+DB_URL=mysql://root:password@localhost:3306/sigrex
 ```
 
 5- Créer une instance sql dans mysql workbench  
@@ -33,5 +33,10 @@ nodemon server
 ```bash
 npm run dev
 ```
+P.S: Pour remplir la base de données avec des données exemplaires, utiliser cette commande 
+```bash
+npx prisma studio
+```
+
 
 
