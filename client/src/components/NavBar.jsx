@@ -2,6 +2,7 @@ import React from "react";
 import { styles } from "../styles.js";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { logo } from "../assets/index.js";
 
 const NavBar = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const NavBar = () => {
           Se connecter
         </button>
       </Link>
+      <img src={logo} className="w-[90px] absolute top-3"/>
     </nav>
   );
 };

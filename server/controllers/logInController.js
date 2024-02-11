@@ -1,6 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const { createToken , validateToken } = require('../JWT.js');
 
 const logIn = async (req, res) => {
 
@@ -25,6 +27,13 @@ const logIn = async (req, res) => {
             //res.status(401).json({ error: 'Auth failed' })
             
         })
+        const accessToken = createToken(user);
+
+        res.cookie('access-token', accessToken, {
+            maxAge: 60 * 60 * 24 * 30 * 1000,
+           httpOnly: true
+        });
+        
         res.json(user);
     }
     catch (e) {

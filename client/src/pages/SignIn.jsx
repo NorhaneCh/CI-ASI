@@ -30,11 +30,11 @@ const SignIn = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="bg-color-blue flex-shrink-0 w-1/2 flex items-center justify-center">
+      <div className="bg-blue-200 flex-shrink-0 w-1/2 flex items-center justify-center">
         <img
           src={cooperation}
           alt="frame"
-          className="w-[700px] h-[700px] object-cover"
+          className="w-[500px] h-[500px] object-cover"
         />
       </div>
 
@@ -109,7 +109,7 @@ const SignIn = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-color-blue text-white p-2 rounded-md text-base hover:bg-green-400 transition duration-300"
+            className="w-full bg-color-blue text-white p-2 rounded-md text-base hover:bg-blue-500"
           >
             Se connecter
           </button>

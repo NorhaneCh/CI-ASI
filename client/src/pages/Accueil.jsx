@@ -2,11 +2,10 @@ import React from "react";
 import { styles } from "../styles";
 import { formation, arrow } from "../assets/index.js";
 import { Link } from "react-router-dom";
-import { formations } from "../constants/index.js";
 import { useContext } from "react";
 import { FormationContext } from "../context/FormationContext.jsx";
 const Accueil = () => {
-  const { setSelectedFormation } = useContext(FormationContext);
+  const { setSelectedFormation,formations } = useContext(FormationContext);
   const SelectFormation = (formation) => {
     setSelectedFormation(formation);
   };
@@ -34,15 +33,15 @@ const Accueil = () => {
           Formations à venir
         </p>
         <div className="flex flex-col max-h-[250px] overflow-scroll items-center bg-white mt-9 w-[60%] mx-auto rounded-md border-2 border-black/10">
-          {formations.map((formation) => (
+          {formations?.map((formation) => (
             <Link to={`/formation/${formation.id}`} className="w-full">
               <div
                 className="py-3 border-b border-black/10 flex flex-row justify-evenly hover:bg-blue-100"
                 onClick={() => SelectFormation(formation)}
               >
-                <p>{formation.id}</p>
-                <p>Formateur</p>
-                <p>12-11-2023</p>
+                <p>{formation.designation}</p>
+                <p>{`${formation.nomFormateur} ${formation.prenomFormateur}`}</p>
+                <p>{formation.DateDebut.slice(0,10)}</p>
               </div>
             </Link>
           ))}

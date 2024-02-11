@@ -22,11 +22,11 @@ const Formation = () => {
       </p>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={person} alt="formateur" />
-        <p>Formateur</p>
+        <p>{`${selectedFormation.nomFormateur} ${selectedFormation.prenomFormateur}`}</p>
       </div>
       <div className="flex flex-row gap-2 items-center">
         <img className=" w-[25px] h-[25px]" src={organisme} alt="formateur" />
-        <p>Organisme</p>
+        <p>{selectedFormation.nomPartenaire}</p>
       </div>
       <div className="flex flex-row gap-3">
         <img className=" w-[20px] h-[20px]" src={location} alt="localisation" />

@@ -2,7 +2,7 @@ import React from "react";
 //nbParticip , Note
 const Devis = () => {
   return (
-    <div className="bg-black/70 h-screen relative">
+    <div className="bg-color-blue/10 h-screen relative">
       <div className="h-[66%] w-[60%] bg-white rounded-md absolute top-36 right-[20%] p-6">
         <p className="text-center text-[20px] font-semibold">Demander Devis</p>
         <div className="flex flex-col mt-12 w-[45%] mx-auto gap-6">
