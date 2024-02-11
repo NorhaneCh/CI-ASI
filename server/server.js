@@ -3,8 +3,13 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 
-const PORT = process.env.PORT || 5000;
+const domaineRouter = require("./routes/domaineRoutes.js");
+const partenaireRouter = require("./routes/partenairesRoutes");
+const formateurRouter = require("./routes/formateursRoutes");
+const formationRouter = require("./routes/formationsRoutes");
+const themeRouter = require("./routes/themesRoutes");
 
+const PORT = process.env.PORT || 5000;
 
 // app
 
@@ -19,7 +24,11 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-
+app.use("/domaines", domaineRouter);
+app.use("/partenaires", partenaireRouter);
+app.use("/themes", themeRouter);
+app.use("/formateurs", formateurRouter);
+app.use("/formations", formationRouter);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
