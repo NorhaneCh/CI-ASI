@@ -44,7 +44,7 @@ model Formation {
   NbParticipants Int
   lieu           String
   TarifP         Float
-  Devis          Bytes?
+  devis          Boolean
 
   DateCreation     DateTime      @default(now())
   DateModification DateTime      @updatedAt
@@ -61,6 +61,7 @@ model Theme {
   Niveau      String
   TarifP      Float
   isCertif    Boolean
+  devis       Boolean
 
   description String?
   prerequis   String?

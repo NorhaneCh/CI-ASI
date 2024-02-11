@@ -21,6 +21,7 @@ const createTheme = async (req, res) => {
     try {
         const theme = await prisma.theme.create({
             data: {
+                domId : domId,
                 designation : designation,
                 Duree : Duree,      
                 Niveau :  Niveau,     
