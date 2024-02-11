@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT;
+const domainesRouter = require('./routers/domaines');
+const themesRouter = require('./routers/themes');
+const formationsRouter = require('./routers/formations');
+const partenairesRouter = require('./routers/partenaires');
+const formateursRouter = require('./routers/formateurs');
 // app
 
 
@@ -17,51 +22,107 @@ app.get('/', (req, res) => {
 
 
 // domaines
-app.get('/domaines', async (req, res) => {
-
-    try {
-        const domaines = await prisma.domaine.findMany()
-        res.json(domaines);
-        
-    }
-    catch (e) {
-        console.log(e);
-        res.status(500).json({ error: 'Erreur serveur' });
-    }
-    
-})
-
-app.post('/domaines', async (req, res) => {
-    const { designation } = req.body;
-    try {
-        const domaine = await prisma.domaine.create({
-            data: {
-                designation : designation
-            }
-        }).then((domaine) => {
-            res.json(domaine);
-        })
-    }
-    catch (e) {
-        console.log(e);
-        res.status(400).json({ error: e.message });
-    }
-
-})
+app.use('/domaines', domainesRouter);
+// themes
+app.use('/themes', themesRouter);
+// formations
+app.use('/formations', formationsRouter);
+// Partenaires
+app.use('/partenaires', partenairesRouter);
+// formateurs
+app.use('/formateurs', formateursRouter);
 
 
-// app.delete('/domaines:id', async (req, res) => {
-//     const { id } = parseInt(req.params.id);
+
+
+app.listen(PORT, () => {
+    console.log('Server is running on port', PORT);
+  })
+
+
+// domaines
+// app.get('/domaines', async (req, res) => {
+
 //     try {
+//         const domaines = await prisma.domaine.findMany()
+//         res.json(domaines);
+        
+//     }
+//     catch (e) {
+//         console.log(e);
+//         res.status(500).json({ error: 'Erreur serveur' });
+//     }
+    
+// })
+
+// app.post('/domaines', async (req, res) => {
+//     const { designation } = req.body;
+//     try {
+//         const domaine = await prisma.domaine.create({
+//             data: {
+//                 designation : designation
+//             }
+//         }).then((domaine) => {
+//             res.json(domaine);
+//         })
+//     }
+//     catch (e) {
+//         console.log(e);
+//         res.status(400).json({ error: e.message });
+//     }
+
+// })
+
+
+// // app.delete('/domaines:id', async (req, res) => {
+// //     const { id } = parseInt(req.params.id);
+// //     try {
+// //         const domaine = await prisma.domaine.delete({
+// //             where: {
+// //                 id: id
+// //             }
+// //         })
+// //         if (!domaine) {
+// //             return res.status(404).json({ error: 'Domaine non trouvé' });
+// //         }
+// //         res.json(domaine);
+// //     }
+// //     catch (e) {
+// //         console.log(e);
+// //         res.status(500).json({ error: e.message });
+// //     }
+// // })
+
+// app.delete('/domaines/:id', async (req, res) => {
+//     const {id} = req.params;
+
+//     try {
+
 //         const domaine = await prisma.domaine.delete({
 //             where: {
-//                 id: id
+//                 id: parseInt(id)
 //             }
 //         })
 //         if (!domaine) {
-//             return res.status(404).json({ error: 'Domaine non trouvé' });
+//             return res.status(404).json({error: 'domaine not found'})
 //         }
-//         res.json(domaine);
+//         res.status(200).json({message: 'domaine deleted'})
+        
+        
+//     }
+//     catch (error) {
+//         res.status(400).json({error: error.message})
+//     }
+// })
+
+
+// themes 
+
+
+// app.get('/themes', async (req, res) => {
+//     try {
+//         const themes = await prisma.theme.findMany()
+//         res.json(themes);
 //     }
 //     catch (e) {
 //         console.log(e);
@@ -69,101 +130,63 @@ app.post('/domaines', async (req, res) => {
 //     }
 // })
 
-app.delete('/domaines/:id', async (req, res) => {
-    const {id} = req.params;
+// app.post('/themes', async (req, res) => {
+//     const { domId, designation, Duree, Niveau, TarifP, isCertif } = req.body;
+//     try {
+//         const theme = await prisma.theme.create({
+//             data: {
+//                 domId : domId,   
+//                 designation : designation,
+//                 Duree : Duree,      
+//                 Niveau :  Niveau,     
+//                 TarifP : TarifP,   
+//                 isCertif: isCertif
+//             }
+//         }).then((theme) => {
+//             res.json(theme);
+//         })
+//     }
+//     catch (e) {
+//         console.log(e);
+//         res.status(400).json({ error: e.message });
+//     }
+// })
 
-    try {
+// app.delete('/themes/:id', async (req, res) => {
+//     const {id} = req.params;
 
-        const domaine = await prisma.domaine.delete({
-            where: {
-                id: parseInt(id)
-            }
-        })
-        if (!domaine) {
-            return res.status(404).json({error: 'domaine not found'})
-        }
-        res.status(200).json({message: 'domaine deleted'})
+//     try {
+
+//         const theme = await prisma.theme.delete({
+//             where: {
+//                 id: parseInt(id)
+//             }
+//         })
+//         if (!theme) {
+//             return res.status(404).json({error: 'theme not found'})
+//         }
+//         res.status(200).json({message: 'theme deleted'})
         
         
-    }
-    catch (error) {
-        res.status(400).json({error: error.message})
-    }
-})
+//     }
+//     catch (error) {
+//         res.status(400).json({error: error.message})
+//     }
+// })
 
+// app.get('/themes/:domId', async (req, res) => {
+//     const {domId} = req.params;
+//     try {
+//         const themes = await prisma.theme.findMany({
+//             where: {
+//                 domId: parseInt(domId)
+//             }
+//         })
+//         res.json(themes);
+//     }
+//     catch (e) {
+//         console.log(e);
+//         res.status(500).json({ error: e.message });
+//     }
+// })
 
-// themes 
-app.get('/themes', async (req, res) => {
-    try {
-        const themes = await prisma.theme.findMany()
-        res.json(themes);
-    }
-    catch (e) {
-        console.log(e);
-        res.status(500).json({ error: e.message });
-    }
-})
-
-app.post('/themes', async (req, res) => {
-    const { domId, designation, Duree, Niveau, TarifP, isCertif } = req.body;
-    try {
-        const theme = await prisma.theme.create({
-            data: {
-                domId : domId,   
-                designation : designation,
-                Duree : Duree,      
-                Niveau :  Niveau,     
-                TarifP : TarifP,   
-                isCertif: isCertif
-            }
-        }).then((theme) => {
-            res.json(theme);
-        })
-    }
-    catch (e) {
-        console.log(e);
-        res.status(400).json({ error: e.message });
-    }
-})
-
-app.delete('/themes/:id', async (req, res) => {
-    const {id} = req.params;
-
-    try {
-
-        const theme = await prisma.theme.delete({
-            where: {
-                id: parseInt(id)
-            }
-        })
-        if (!theme) {
-            return res.status(404).json({error: 'theme not found'})
-        }
-        res.status(200).json({message: 'theme deleted'})
-        
-        
-    }
-    catch (error) {
-        res.status(400).json({error: error.message})
-    }
-})
-
-app.get('/themes/:domId', async (req, res) => {
-    const {domId} = req.params;
-    try {
-        const themes = await prisma.theme.findMany({
-            where: {
-                domId: parseInt(domId)
-            }
-        })
-        res.json(themes);
-    }
-    catch (e) {
-        console.log(e);
-        res.status(500).json({ error: e.message });
-    }
-})
-
-app.listen(PORT, () => {
-  console.log('Server is running on port', PORT);
-})
