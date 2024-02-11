@@ -9,12 +9,55 @@ const getFormations = async (req, res) => {
         DateCreation: "desc",
       },
     });
-    res.json(formations);
+
+    const result = [];
+
+    for (const formation of formations) {
+      console.log(formation);
+
+      const formateur = await prisma.formateur.findUnique({
+        where: {
+          matricule: formation.formateurId,
+        },
+      });
+
+      const partenaire = await prisma.partenaire.findUnique({
+        where: {
+          id: formation.partId,
+        },
+      });
+
+      
+        const data =  {
+          id: formation.id,
+          partId: formation.partId,
+          formateurId: formation.formateurId,
+          domId: formation.domId,
+          designation: formation.designation,
+          DateDebut: formation.DateDebut,
+          DateFin: formation.DateFin,
+          NbJours: formation.NbJours,
+          NbParticipants: formation.NbParticipants,
+          lieu: formation.lieu,
+          TarifP: formation.TarifP,
+          devis: formation.devis,
+          nomFormateur: formateur.nom,
+          prenomFormateur: formateur.prenom,
+          nomPartenaire: partenaire.nom,
+  
+        }
+
+        result.push(data);
+    }
+
+    res.json(result);
+  
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: e.message });
   }
 };
+
 
 const createFormation = async (req, res) => {
   const {
@@ -28,7 +71,7 @@ const createFormation = async (req, res) => {
     NbParticipants,
     lieu,
     TarifP,
-    NbFormateur,
+    devis,
   } = req.body;
   try {
     const formation = await prisma.formation
@@ -44,7 +87,7 @@ const createFormation = async (req, res) => {
           NbParticipants: NbParticipants,
           lieu: lieu,
           TarifP: TarifP,
-          NbFormateur: NbFormateur,
+          devis: devis,
         },
       })
       .then((formation) => {
@@ -55,6 +98,8 @@ const createFormation = async (req, res) => {
     res.status(400).json({ error: e.message });
   }
 };
+
+
 
 const deleteFormation = async (req, res) => {
   const { id } = req.params;
@@ -135,9 +180,51 @@ const getFormationByDomaine = async (req, res) => {
   }
 };
 
+
+const getFormationById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+
+    const formation = await prisma.formation.findUnique({
+      where: {
+        id: parseInt(id)
+      }
+    })
+    if (!formation) {
+      return res.status(404).json({ error: 'formation not found' })
+    }
+    
+
+    const formateur = await prisma.formateur.findUnique({
+      where: {
+        matricule: formation.formateurId
+      }
+
+      
+    })
+
+    
+
+    const partenaire = await prisma.partenaire.findUnique({
+      where: {
+        id: formation.partId
+      }
+    })
+
+    return res.json({formation, formateur, partenaire})
+  }
+  catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+  
+}
+
+
 module.exports = {
   getFormations,
   createFormation,
   deleteFormation,
   getFormationByDomaine,
+  getFormationById,
 };

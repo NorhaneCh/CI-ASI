@@ -12,27 +12,33 @@ const getThemes = async (req, res) => {
 };
 
 const createTheme = async (req, res) => {
-  const { domId, designation, Duree, Niveau, TarifP, isCertif } = req.body;
-  try {
-    const theme = await prisma.theme
-      .create({
-        data: {
-          domId: domId,
-          designation: designation,
-          Duree: Duree,
-          Niveau: Niveau,
-          TarifP: TarifP,
-          isCertif: isCertif,
-        },
-      })
-      .then((theme) => {
-        res.json(theme);
-      });
-  } catch (e) {
-    console.log(e);
-    res.status(400).json({ error: e.message });
-  }
-};
+
+    const { domId, designation, Duree, Niveau, TarifP, isCertif, devis, description, prerequis } = req.body;
+    try {
+        const theme = await prisma.theme.create({
+            data: {
+                domId : domId,
+                designation : designation,
+                Duree : Duree,      
+                Niveau :  Niveau,     
+                TarifP : TarifP,   
+                isCertif: isCertif,
+                devis: devis,
+                description : description,
+                prerequis : prerequis 
+            }
+        }).then((theme) => {
+            res.json(theme);
+        })
+    }
+    catch (e) {
+        console.log(e);
+        res.status(400).json({ error: e.message });
+    }
+
+}
+
+
 
 const deleteTheme = async (req, res) => {
   const { id } = req.params;

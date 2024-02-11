@@ -70,24 +70,25 @@ const deleteFormateur = async (req, res) => {
 const getFormateurById = async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const formateur = await prisma.formateur.findUnique({
-      where: {
-        matricule: id,
-      },
-    });
-    if (!formateur) {
-      return res.status(404).json({ error: "formateur not found" });
+    try {
+        const formateur = await prisma.formateur.findUnique({
+            where: {
+                matricule: id
+            }
+        })
+        if (!formateur) {
+            return res.status(404).json({ error: 'formateur not found' })
+        }
+        res.json(formateur)
     }
-    res.json(formateur);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+    catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 
 module.exports = {
-  getFormateurs,
-  createFormateur,
-  deleteFormateur,
-  getFormateurById,
-};
+    getFormateurs,
+    createFormateur,
+    deleteFormateur, 
+    getFormateurById
+}
