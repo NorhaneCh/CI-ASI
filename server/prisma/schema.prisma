@@ -4,8 +4,9 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DB_URL")
+  url =  env("DB_URL")
 }
+
 
 // model FormationCarte {
 //     id Int @id @default(autoincrement())

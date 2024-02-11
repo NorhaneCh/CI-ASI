@@ -4,7 +4,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        "color-blue": "#5770E5",
+      },
       screens: {
         xs: "450px",
         lg: "1280px",
