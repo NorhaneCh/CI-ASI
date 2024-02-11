@@ -28,7 +28,13 @@ const ThemeCard = ({ theme }) => {
         <p className="text-color-blue bg-color-blue/10 px-4 py-1 rounded-md">
           {theme.Niveau}
         </p>
-        <p className="flex flex-row gap-2 text-green-500 bg-green-500/10 px-4 py-1 text-[14px] rounded-md">
+        <p
+          className={`flex flex-row gap-2 ${
+            theme.isCertif
+              ? " text-green-500 bg-green-500/10 "
+              : "text-red-500 bg-red-500/10"
+          } px-4 py-1 text-[14px] rounded-md`}
+        >
           {theme.isCertif ? "Certifié" : "Non-Certifié"}
         </p>
       </div>

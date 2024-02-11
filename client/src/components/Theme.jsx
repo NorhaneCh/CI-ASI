@@ -7,7 +7,8 @@ const Theme = () => {
   const { selectedTheme } = useContext(FormationContext);
   return (
     <div
-      className={`${styles.padding} z-0 max-w-7xl mx-auto w-[60%] text-[15px] flex flex-col gap-4`} >
+      className={`${styles.padding} z-0 max-w-7xl mx-auto w-[60%] text-[15px] flex flex-col gap-4`}
+    >
       <p className="text-center font-semibold text-[24px]">
         {selectedTheme.designation}
       </p>
@@ -29,7 +30,13 @@ const Theme = () => {
         <p className="text-color-blue bg-color-blue/10 px-4 py-1 rounded-md">
           {selectedTheme.Niveau}
         </p>
-        <p className="flex flex-row gap-2 text-green-500 bg-green-500/10 px-4 py-1 text-[14px] rounded-md">
+        <p
+          className={`flex flex-row gap-2 ${
+            selectedTheme.isCertif
+              ? " text-green-500 bg-green-500/10 "
+              : "text-red-500 bg-red-500/10"
+          } px-4 py-1 text-[14px] rounded-md`}
+        >
           {selectedTheme.isCertif ? "Certifié" : "Non-Certifié"}
         </p>
       </div>
