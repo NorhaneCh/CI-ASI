@@ -33,5 +33,10 @@ nodemon server
 ```bash
 npm run dev
 ```
+P.S: Pour remplir la base de données avec des données exemplaires, utiliser cette commande 
+```bash
+npx prisma studio
+```
+
 
 
