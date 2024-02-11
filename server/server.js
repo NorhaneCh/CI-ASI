@@ -51,13 +51,14 @@ app.post("/domaines", async (req, res) => {
 // app.delete('/domaines:id', async (req, res) => {
 //     const { id } = parseInt(req.params.id);
 //     try {
+
 //         const domaine = await prisma.domaine.delete({
 //             where: {
-//                 id: id
+//                 id: parseInt(id)
 //             }
 //         })
 //         if (!domaine) {
-//             return res.status(404).json({ error: 'Domaine non trouvé' });
+//             return res.status(404).json({error: 'domaine not found'})
 //         }
 //         res.json(domaine);
 //     }
@@ -119,6 +120,8 @@ app.post("/themes", async (req, res) => {
   }
 });
 
+// app.delete('/themes/:id', async (req, res) => {
+//     const {id} = req.params;
 app.delete("/themes/:id", async (req, res) => {
   const { id } = req.params;
 
